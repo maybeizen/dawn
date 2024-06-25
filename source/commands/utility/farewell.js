@@ -5,8 +5,7 @@ const {
 } = require("discord.js");
 const Settings = require("../../models/Settings.js");
 const c = require("chalk");
-const { errorEmbed } = require("../../config/_embeds.js");
-const { noPerms, runInGuild } = require("../../config/_messages_.json");
+const embeds = require("../../db/embeds.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -46,12 +45,7 @@ module.exports = {
       )
     ) {
       await interaction.editReply({
-        embeds: [
-          new EmbedBuilder()
-            .setTitle("Error")
-            .setDescription(noPerms)
-            .setColor("Red"),
-        ],
+        embeds: [embeds.noPerms],
       });
 
       return;
@@ -59,12 +53,7 @@ module.exports = {
 
     if (!interaction.inGuild()) {
       await interaction.editReply({
-        embeds: [
-          new EmbedBuilder()
-            .setTitle("Error")
-            .setDescription(runInGuild)
-            .setColor("Red"),
-        ],
+        embeds: [embeds.runInGuild],
       });
       return;
     }
@@ -203,7 +192,7 @@ module.exports = {
       console.error(c.red(error));
       console.log(c.gray(error.stack));
       await interaction.editReply({
-        embeds: [errorEmbed],
+        embeds: [embeds.error],
       });
     }
   },

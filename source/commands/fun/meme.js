@@ -6,7 +6,7 @@ const {
   ActionRowBuilder,
 } = require("discord.js");
 const axios = require("axios");
-const { errorEmbed } = require("../../config/_embeds.js");
+const embeds = require("../../db/embeds.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -21,7 +21,7 @@ module.exports = {
         console.log(c.gray(error.stack));
 
         await interaction.reply({
-          embeds: [errorEmbed],
+          embeds: [embed.error],
         });
       });
 

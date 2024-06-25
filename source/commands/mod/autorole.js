@@ -4,7 +4,7 @@ const {
   PermissionsBitField,
 } = require("discord.js");
 const { errorEmbed } = require("../../config/_embeds.js");
-const { noPerms, runInGuild } = require("../../config/_messages_.json");
+const embeds = require("../../db/embeds.js");
 const Settings = require("../../models/Settings.js");
 const c = require("chalk");
 
@@ -34,12 +34,7 @@ module.exports = {
 
     if (!interaction.inGuild()) {
       return await interaction.editReply({
-        embeds: [
-          new EmbedBuilder()
-            .setTitle("Error")
-            .setDescription(runInGuild)
-            .setColor("Red"),
-        ],
+        embeds: [embeds.runInGuild],
       });
     }
 
@@ -47,12 +42,7 @@ module.exports = {
       !interaction.member.permissions.has(PermissionsBitField.Flags.ManageRoles)
     ) {
       return await interaction.editReply({
-        embeds: [
-          new EmbedBuilder()
-            .setTitle("Error")
-            .setDescription(noPerms)
-            .setColor("Red"),
-        ],
+        embeds: [embeds.noPerms],
       });
     }
 

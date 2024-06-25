@@ -4,7 +4,7 @@ const {
   InteractionWebhook,
 } = require("discord.js");
 const c = require("chalk");
-const { errorEmbed } = require("../../config/_embeds.js");
+const embeds = require("../../db/embeds.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -137,7 +137,7 @@ module.exports = {
         console.error(c.red(error));
         console.log(c.gray(error.stack));
         await interaction.editReply({
-          embeds: [errorEmbed],
+          embeds: [embeds.error],
         });
       }
     }

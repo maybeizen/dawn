@@ -15,8 +15,7 @@ const durationList = {
   1209600000: "14 Days",
   2414880000: "28 Days",
 };
-const { errorEmbed } = require("../../config/_embeds.js");
-const { noPerms, runInGuild } = require("../../config/_messages_.json");
+const embeds = require("../../db/embeds.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -81,12 +80,7 @@ module.exports = {
 
     if (!interaction.inGuild()) {
       await interaction.editReply({
-        embeds: [
-          new EmbedBuilder()
-            .setTitle("Error")
-            .setDescription(runInGuild)
-            .setColor("Red"),
-        ],
+        embeds: [embeds.runInGuild],
       });
       return;
     }
@@ -97,12 +91,7 @@ module.exports = {
       )
     ) {
       await interaction.editReply({
-        embeds: [
-          new EmbedBuilder()
-            .setTitle("Error")
-            .setDescription(noPerms)
-            .setColor("Red"),
-        ],
+        embeds: [embeds.noPerms],
       });
       return;
     }
@@ -228,7 +217,7 @@ module.exports = {
       console.log(c.gray(error.stack));
 
       await interaction.editReply({
-        embeds: [errorEmbed],
+        embeds: [embeds.error],
       });
     }
   },
